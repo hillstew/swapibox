@@ -1,0 +1,16 @@
+.controls-div {
+  background-color: aqua;
+  position: absolute;
+  z-index: 1;
+  top: 400px;
+  left: 350px;
+
+}
+
+.controls-div button {
+  background: none;
+  cursor: pointer;
+  height: 300px;
+  margin: 15px;
+  width: 220px;
+}
