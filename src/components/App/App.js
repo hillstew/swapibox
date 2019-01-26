@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../../main.scss";
 import { Aside } from "../Aside/Aside";
+import Main from "../Main/Main";
 import fetchData from "../../API/api";
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
     return film ? (
       <div className="App">
         <Aside film={film} />
+        <Main />
       </div>
     ) : (
       <div>loading</div>
