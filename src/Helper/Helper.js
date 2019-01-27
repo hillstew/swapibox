@@ -1,7 +1,7 @@
 import fetchData from "../API/api";
 
-const getCleanPeople = async data => {
-  let cleanPeople = data.map(async person => {
+const getCleanPeople = async people => {
+  let cleanPeople = people.map(async person => {
     let homeworld = await fetchData(person.homeworld);
     let species = await fetchData(person.species[0]);
     return {
@@ -29,7 +29,7 @@ const getCleanPlanets = async planets => {
       terrain: planet.terrain,
       population: planet.population,
       climate: planet.climate,
-      residents,
+      residents: "need to fix",
       favorite: false
     };
   });
