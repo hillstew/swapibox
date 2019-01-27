@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Aside should match snapshot 1`] = `
+<aside
+  className="aside"
+>
+  <p
+    className="scrolling-text"
+  >
+    It is a dark time for the
+  </p>
+  <p
+    className="scrolling-text"
+  >
+    The Empire Strikes Back
+  </p>
+  <p
+    className="scrolling-text"
+  >
+    1980-05-17
+  </p>
+</aside>
+`;
