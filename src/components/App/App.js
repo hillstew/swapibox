@@ -15,7 +15,12 @@ class App extends Component {
 
   componentDidMount = async () => {
     const filmsData = await fetchData("https://swapi.co/api/films/");
-    const film = await this.getRandomFilm(filmsData.results);
+    let film = await this.getRandomFilm(filmsData.results);
+    film = {
+      openingCrawl: film.opening_crawl,
+      title: film.title,
+      year: film.release_date
+    };
     await this.setState({ film });
   };
 
