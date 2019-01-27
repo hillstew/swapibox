@@ -17,18 +17,18 @@ class Main extends Component {
   }
 
   handleChange = async event => {
-    let dataArray = [];
-    const { name } = event.target;
-    if (this.state[name].length === 0) {
-      var data = await fetchData(`https://swapi.co/api/${name}/`);
+    const { name: view } = event.target;
+    if (this.state[view].length === 0) {
+      let dataArray = [];
+      const data = await fetchData(`https://swapi.co/api/${view}/`);
       dataArray.push(...data.results)
-      var cleanedData = await this.handleData(name, dataArray);
+      var cleanedData = await this.handleData(view, dataArray);
     }
-    this.setState({ view: name, [name]: cleanedData });
+    this.setState({ view, [view]: cleanedData });
   };
 
-  handleData = (name, data) => {
-    switch (name) {
+  handleData = (view, data) => {
+    switch (view) {
       case "planets":
         return getCleanPlanets(data);
       case "people":
