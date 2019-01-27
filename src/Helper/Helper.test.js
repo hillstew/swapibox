@@ -12,7 +12,7 @@ describe("Helper", () => {
     beforeEach(async () => {
       fetchData = jest.fn().mockImplementation(() =>
         Promise.resolve({
-          json: () => ({ results: "array of 10 people" })
+          json: () => ({ results: [] })
         })
       );
       mockSpecies = {
