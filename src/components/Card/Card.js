@@ -32,16 +32,11 @@ export const Card = props => {
     </div>
   );
 
-  let showFavorites = () => {
-
-  }
-
   return (
     <div className="card">
       {props.view === "vehicles" && <div>{vehicleCard}</div>}
       {props.view === "planets" && <div>{planetCard}</div>}
       {props.view === "people" && <div>{peopleCard}</div>}
-      {/* {props.view === "favorites" && {showFavorites}} */}
     </div>
   );
 };
