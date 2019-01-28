@@ -8,7 +8,6 @@ const CardContainer = props => {
       <Card subject={subject} view={props.view} key={subject.name} />
     );
   });
-
   return <div>{cards}</div>;
 };
 
