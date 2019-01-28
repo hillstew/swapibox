@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardContainer should match snapshot 1`] = `
+<div>
+  <Card
+    key="Sand Crawler"
+    subject={
+      Object {
+        "class": "wheeled",
+        "model": "Digger Crawler",
+        "name": "Sand Crawler",
+        "passengers": "30",
+      }
+    }
+    view="vehicles"
+  />
+  <Card
+    key="T-16 skyhopper"
+    subject={
+      Object {
+        "class": "repulsorcraft",
+        "model": "T-16 skyhopper",
+        "name": "T-16 skyhopper",
+        "passengers": "1",
+      }
+    }
+    view="vehicles"
+  />
+</div>
+`;
