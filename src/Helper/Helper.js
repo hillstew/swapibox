@@ -3,17 +3,18 @@ import fetchData from "../API/api";
 const getCleanPeople = async people => {
   let cleanPeople = people.map(async person => {
     let homeworld = await fetchData(person.homeworld);
+    console.log(homeworld)
     let species = await fetchData(person.species[0]);
     return {
       name: person.name,
       homeworld: homeworld.name,
       species: species.name,
       population: homeworld.population,
-      favorite: false
     };
   });
   return Promise.all(cleanPeople);
 };
+
 
 const getCleanPlanets = async planets => {
   let cleanPlanets = planets.map(async planet => {
@@ -30,7 +31,6 @@ const getCleanPlanets = async planets => {
       population: planet.population,
       climate: planet.climate,
       residents: "in progress",
-      favorite: false
     };
   });
   return Promise.all(cleanPlanets);
@@ -43,7 +43,6 @@ const getCleanVehicles = vehicles => {
       model: vehicle.model,
       class: vehicle.vehicle_class,
       passengers: vehicle.passengers,
-      favorite: false
     };
   });
   return cleanVehicles;
