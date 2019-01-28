@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-export const Controls = props => {
+ const Controls = props => {
   return (
     <div className="controls-div">
       <button onClick={props.handleChange} name="vehicles">
@@ -15,3 +16,9 @@ export const Controls = props => {
     </div>
   );
 };
+
+Controls.propTypes = {
+  handleChange: PropTypes.func.isRequired
+}
+
+export default Controls;
