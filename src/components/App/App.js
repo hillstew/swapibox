@@ -8,7 +8,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      error: "",
       film: null
     };
   }
@@ -37,7 +36,7 @@ class App extends Component {
         <Main />
       </div>
     ) : (
-      <div>loading</div>
+      <div />
     );
   }
 }

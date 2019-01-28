@@ -29,7 +29,7 @@ const getCleanPlanets = async planets => {
       terrain: planet.terrain,
       population: planet.population,
       climate: planet.climate,
-      residents: "need to fix",
+      residents: "in progress",
       favorite: false
     };
   });
