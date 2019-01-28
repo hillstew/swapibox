@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-// import Header from "../Header/Header"
-import { Controls } from "../Controls/Controls";
-import { CardContainer } from "../CardContainer/CardContainer";
-import { getCleanVehicles, fetchData, getCleanPeople, getCleanPlanets} from "../../Helper/Helper";
+import Controls from "../Controls/Controls";
+import CardContainer from "../CardContainer/CardContainer";
+import {
+  getCleanVehicles,
+  fetchData,
+  getCleanPeople,
+  getCleanPlanets
+} from "../../Helper/Helper";
 
 class Main extends Component {
   constructor() {
@@ -11,47 +15,50 @@ class Main extends Component {
       view: "",
       planets: [],
       vehicles: [],
-      people: [],
-      favorites: []
+      people: []
     };
   }
 
   handleChange = async event => {
     const { name: view } = event.target;
     if (this.state[view].length === 0) {
-      let dataArray = [];
+      let dataResults = [];
       const data = await fetchData(`https://swapi.co/api/${view}/`);
-      dataArray.push(...data.results)
-      var cleanedData = await this.handleData(view, dataArray);
+      dataResults.push(...data.results);
+      var cleanedData = await this.handleData(view, dataResults);
+      this.setState({ view, [view]: cleanedData });
+    } else {
+      this.setState({ view });
     }
-    this.setState({ view, [view]: cleanedData });
   };
 
-  handleData = (view, data) => {
+  handleData = (view, dataResults) => {
     switch (view) {
       case "planets":
-        return getCleanPlanets(data);
+        return getCleanPlanets(dataResults);
       case "people":
-        return getCleanPeople(data);
+        return getCleanPeople(dataResults);
       case "vehicles":
-        return getCleanVehicles(data);
+        return getCleanVehicles(dataResults);
       default:
         return;
     }
   };
 
   render() {
-    const { view, planets, vehicles, people, favorites } = this.state;
+    const { view, planets, vehicles, people } = this.state;
     return (
       <div className="main-div">
         {view === "" && <Controls handleChange={this.handleChange} />}
         {view !== "" && (
-          <CardContainer
-            view={view}
-            planets={planets}
-            vehicles={vehicles}
-            people={people}
-          />
+          <div>
+            <Controls handleChange={this.handleChange} />
+            <CardContainer
+              view={view}
+              planets={planets}
+              vehicles={vehicles}
+              people={people} />
+          </div>
         )}
       </div>
     );
