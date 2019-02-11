@@ -1,68 +1,78 @@
-import React, { Component } from "react";
-import Controls from "../Controls/Controls";
-import CardContainer from "../CardContainer/CardContainer";
+import React, { Component } from "react"
+import { connect } from "react-redux"
+
+import { getPlanets, setView, getPeople, getVehicles } from "../../actions"
+import Controls from "../Controls/Controls"
+import CardContainer from "../CardContainer/CardContainer"
 import {
   getCleanVehicles,
   fetchData,
   getCleanPeople,
-  getCleanPlanets
-} from "../../Helper/Helper";
+  getCleanPlanets,
+  getFavorites
+} from "../../Helper/Helper"
 
 class Main extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
-      view: "",
-      planets: [],
-      vehicles: [],
-      people: []
-    };
+      isLoading: true
+    }
   }
 
-  handleChange = async event => {
-    const { name: view } = event.target;
-    if (this.state[view].length === 0) {
-      let dataResults = [];
-      const data = await fetchData(`https://swapi.co/api/${view}/`);
-      dataResults.push(...data.results);
-      var cleanedData = await this.handleData(view, dataResults);
-      this.setState({ view, [view]: cleanedData });
-    } else {
-      this.setState({ view });
-    }
-  };
+  handleClick = async (event) => {
+    const { name: view } = event.target
+    this.props.setView(view)
+    let dataResults = []
+    const data = await fetchData(`https://swapi.co/api/${view}/`)
+    dataResults.push(...data.results)
+    let cleanedData = await this.handleData(view, dataResults)
+    view === "vehicles" && this.props.getVehicles(cleanedData)
+    view === "people" && (await this.props.getPeople(cleanedData))
+    view === "planets" && (await this.props.getPlanets(cleanedData))
+    this.setState({ isLoading: false })
+  }
 
   handleData = (view, dataResults) => {
     switch (view) {
       case "planets":
-        return getCleanPlanets(dataResults);
+        return getCleanPlanets(dataResults)
       case "people":
-        return getCleanPeople(dataResults);
+        return getCleanPeople(dataResults)
       case "vehicles":
-        return getCleanVehicles(dataResults);
+        return getCleanVehicles(dataResults)
+      case "favorites":
+        return getFavorites()
       default:
-        return;
+        return
     }
-  };
+  }
 
   render() {
-    const { view, planets, vehicles, people } = this.state;
+    const { isLoading } = this.state
     return (
       <div className="main-div">
-        {view === "" && <Controls handleChange={this.handleChange} />}
-        {view !== "" && (
-          <div>
-            <Controls handleChange={this.handleChange} />
-            <CardContainer
-              view={view}
-              planets={planets}
-              vehicles={vehicles}
-              people={people} />
-          </div>
-        )}
+        <Controls handleClick={this.handleClick} />
+        {!isLoading && <CardContainer />}
       </div>
-    );
+    )
   }
 }
 
-export default Main;
+const mapDispatchToProps = (dispatch) => ({
+  getPlanets: (planets) => dispatch(getPlanets(planets)),
+  getPeople: (people) => dispatch(getPeople(people)),
+  getVehicles: (vehicles) => dispatch(getVehicles(vehicles)),
+  setView: (view) => dispatch(setView(view))
+})
+
+const mapStateToProps = (state) => ({
+  planets: state.planets,
+  view: state.view,
+  vehicles: state.vehicles,
+  people: state.people
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)(Main)
