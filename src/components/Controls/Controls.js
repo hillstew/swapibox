@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
- const Controls = props => {
+ const Controls = ({ handleClick }) => {
   return (
     <div className="controls-div">
-      <button onClick={props.handleChange} name="vehicles">
+      <button onClick={handleClick} name="vehicles">
         <span>VEHICLES</span>
       </button>
-      <button onClick={props.handleChange} name="planets">
+      <button onClick={handleClick} name="planets">
         <span>PLANETS</span>
       </button>
-      <button onClick={props.handleChange} name="people">
+      <button onClick={handleClick} name="people">
         <span>PEOPLE</span>
       </button>
     </div>
@@ -18,7 +18,7 @@ import PropTypes from "prop-types";
 };
 
 Controls.propTypes = {
-  handleChange: PropTypes.func.isRequired
+  handleClick: PropTypes.func.isRequired
 }
 
 export default Controls;
