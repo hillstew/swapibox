@@ -3,7 +3,6 @@ import fetchData from "../API/api";
 const getCleanPeople = async people => {
   let cleanPeople = people.map(async person => {
     let homeworld = await fetchData(person.homeworld);
-    console.log(homeworld)
     let species = await fetchData(person.species[0]);
     return {
       name: person.name,
@@ -19,7 +18,7 @@ const getCleanPeople = async people => {
 const getCleanPlanets = async planets => {
   let cleanPlanets = planets.map(async planet => {
     let residents = [];
-    if (planet.residents.length >= 1) {
+    if (planet.residents.length !== 0) {
       planet.residents.forEach(async residentUrl => {
         var resident = await fetchData(residentUrl);
         residents.push(resident.name);
@@ -48,4 +47,7 @@ const getCleanVehicles = vehicles => {
   return cleanVehicles;
 };
 
-export { getCleanVehicles, fetchData, getCleanPeople, getCleanPlanets };
+const getFavorites = ()  => {
+}
+
+export { getCleanVehicles, fetchData, getCleanPeople, getCleanPlanets, getFavorites };
